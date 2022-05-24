@@ -32,9 +32,9 @@ function ContextProvider({children}) {
         }
       }, [])
 
-      /* useEffect(()=> {
-        setSavedWeather(prevWeather => getUniqueArray(prevWeather,['name']))
-    },[savedWeather.length])  */
+    useEffect(()=> {
+        setSavedWeather(prevWeather => getUniqueArray(prevWeather,['id']))
+    },[savedWeather.length])  
 
       useEffect(()=> {
           setSavedLocation(prevLocation => getUniqueArray(prevLocation,['lat','lon']))
@@ -63,7 +63,7 @@ function ContextProvider({children}) {
 
       async function addWeather(city,state,country) {
           const fetchData = async () => {
-              const cityRes = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=1&appid=bcb27486b135c1629b11bc6fb548e093`)
+              const cityRes = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=1&appid=bcb27486b135c1629b11bc6fb548e093`)
               const cityData = await cityRes.json()
               const weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${cityData[0].lat}&lon=${cityData[0].lon}&appid=bcb27486b135c1629b11bc6fb548e093`)
               const weatherData = await weatherRes.json()
