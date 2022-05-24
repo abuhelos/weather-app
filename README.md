@@ -28,7 +28,7 @@ Two pages (Home.jsx and WeatherDetail.jsx), five components (CurrentWeather.jsx,
 
 Context:
 
-- Purpose of this file was to create state and make initial API calls that will be passed to several child components of different hierarchys. Creating context was easier than having to manually pass props down thorugh several components.
+- Purpose of this file was to create state and make initial API calls that will be passed to several child components of different hierarchies. Creating context was easier than having to manually pass props down through several components.
 - State: currentWeather, searchContent, savedWeather, and savedLocation
   - currentWeather: Contains current weather data from the Open Weather DB from the users current location
   - searchContent: Contains the information typed into the search bar which is used in the API url link to fetch the correct weather data. This object clears after each search
@@ -39,9 +39,9 @@ Context:
   - addWeather: Uses the information typed into the search bar to fetch the weather of the desired location. The data retrieved will be added to the savedWeather array and the latitude and longitude will be saved in savedLocation
   - removeWeather: Removes the desired location from the savedWeather and savedLocation state so that it will no longer be rendered as a preview component
 
-App.jsx and main.jsx:
+App.jsx and index.jsx:
 
-- The main file renders the app to the DOM. The context provider and react router are set up as the parent elements of the app components in this file.
+- The index file renders the app to the DOM. The context provider and react router are set up as the parent elements of the app components in this file.
 - The App file contains the paths of React Router and the layout of the page. The header and footer are constants within the webpage while the middle part of the website varies depending on where the user is routed to on the website. The initial page is the home page which displays the weather preview components at the current and saved locations. If one of the preview components are clicked on they will route the user to a more detailed page of that city's weather
 
 ### Pages
@@ -61,7 +61,7 @@ Home.jsx:
 
 WeatherDetail.jsx:
 
-- Purpose of the if statement is because weather detail would have a bug if refreshed on the detail page instead of the home page. This is because the current location and saved location would have to be fetched again meaning lines of code ran inside the if statement were returning an error since the current weather did not have a value on initial render.
+- There is an if statement because weather detail would have a bug if refreshed on the detail page instead of the home page. This is because the currentWeather is initially undefined until it is fetched from OpenWeather.
 - The forecast of the intended city is retrieved from the Open Weather DB once the intial weather is fetched. The useParams hook was used to accomplish this since it matches the city name with its corresponding coordinates in the allWeather array.
 - Rendering (Conditionally renders ...Loading if the data has not been received yet or the forecast components if the data has been received)
   - CurrentWeather: Contains more details about the current weather and a google map of the location
@@ -73,7 +73,7 @@ WeatherDetail.jsx:
 CurrentWeather.jsx:
 
 - Functions
-  - temperatureConverter: Converts temperature from Kelvin to Farenheit
+  - temperatureConverter: Converts temperature from Kelvin to Fahrenheit
   - timeConverter: Converts time from unix to a Date object, determines whether it is AM or PM and returns the time
 - Rendering
   - Uses all of the props passed from the parent to display the name, country, temperature, description, etc.
@@ -82,16 +82,16 @@ CurrentWeather.jsx:
 HourlyForecast.jsx:
 
 - Functions
-  - temperatureConverter: Converts temperature from Kelvin to Farenheit
+  - temperatureConverter: Converts temperature from Kelvin to Fahrenheit
   - timeConverter: Converts unix time into the time of day
 - convertedData constant converts the time and temperature components from the array provided by the parent using the above functions
 - Rendering
-  - Used Recharts (see references) to create a line chart to visualize the hourly temperature and humidty forecast. It features a responsive container, tooltip animation, and a legend.
+  - Used Recharts (see references) to create a line chart to visualize the hourly temperature and humidity forecast. It features a responsive container, tooltip animation, and a legend.
 
 Preview.jsx:
 
 - Uses the props given by the parent to render a preview of the current weather of the intended location.
-- Has a temperatureConverter function to convert Kelvin to Farenheit and a trashIcon that when clicked will remove the component from the saved weather array.
+- Has a temperatureConverter function to convert Kelvin to Fahrenheit and a trashIcon that when clicked will remove the component from the saved weather array.
 
 WeeklyForecast.jsx:
 
@@ -99,7 +99,7 @@ WeeklyForecast.jsx:
   - temperatureConverter: Converts Kelvin to Farenheit
   - timeConverter: Converts unix time to day of week, month, and day of month
   - truncate: Truncates a string down to the specified number of words. Only the first three values of the date string were needed to this was used in the timeConverter function to get the day of week, month, and day of month
-- Renders forecastElements which maps through each day of the weeklyForecast and sends its values into the WeeklyFBar component which orgainzes the content into a three column display
+- Renders forecastElements which maps through each day of the weeklyForecast and sends its values into the WeeklyFBar component which organizes the content into a three column display
 
 WeeklyFBar.jsx:
 
@@ -109,7 +109,7 @@ WeeklyFBar.jsx:
 
 ### Recharts Issues
 
-There is a bug with the Recharts responsive container feature for React >18 that has not been fixed yet. In order to solve this problem I set up the main.jsx file like React 17 document and used ReactDOM.render instead of createRoot. See [here](https://github.com/recharts/recharts/issues/2831) for the issues thread on the recharts repo.
+There is a bug with the Recharts responsive container feature for React >18 that has not been fixed yet. In order to solve this problem I set up the index.jsx file like React 17 document and used ReactDOM.render instead of createRoot. See [here](https://github.com/recharts/recharts/issues/2831) for the issues thread on the recharts repo.
 
 ### Saved Weather Array
 
@@ -118,11 +118,15 @@ There is a bug with the Recharts responsive container feature for React >18 that
 
 ### Bad API Requests
 
-- If the user entered bad information into the search bar, the api request would return a 404 error. I wrote a catch statenebt that would alert the user that the name they entered was not valid and would clear the search bar state
+- If the user entered bad information into the search bar, the api request would return a 404 error. I wrote a catch statement that would alert the user that the name they entered was not valid and would clear the search bar state
 
 ### Locations with the same name
 
 - If there are two locations with the same name, they have the same url params. For example, if I had Springfield, IL and Springfield, MA components clicking on either preview component would render the WeatherDetail page of Springfield only. I solved this by using the id property of the weather component instead of the name as the url param.
+
+### API Request on Github Pages
+
+- Github.io does not accept any requests from insecure sources so I had to change all of the urls from http to https
 
 ## Future Improvements
 
@@ -132,7 +136,11 @@ There is a bug with the Recharts responsive container feature for React >18 that
 
 ### Repeating code for temperatureConverter
 
-- There are several instances where I use the temperatureConverter function. It would be more concise to put this code in my Context file and pass it to all of the files wehre I use this function. This function can also be improvded by converting to Celsius as well. There could be a boolean state that toggles whether the function would return Farenheit or Celsius
+- There are several instances where I use the temperatureConverter function. It would be more concise to put this code in my Context file and pass it to all of the files where I use this function.
+
+### Celsius Feature
+
+- I can have a toggle state that uses a boolean to determine whether my temperatureConverter function displays Fahrenheit or Celsius.
 
 ## References
 
