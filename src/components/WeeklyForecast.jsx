@@ -1,5 +1,10 @@
 import React from "react";
 import WeeklyFBar from "../components/WeeklyFBar"
+import styled from 'styled-components'
+
+const Title = styled.h2`
+    margin-bottom: 10px;
+`
 
 function WeeklyForecast(props) {
     const data = props.forecast.daily
@@ -45,7 +50,7 @@ function WeeklyForecast(props) {
 
     return(
         <div>
-            <h2>Weekly Forecast</h2>
+            <Title>Weekly Forecast</Title>
             {forecastElements}
         </div>
     )

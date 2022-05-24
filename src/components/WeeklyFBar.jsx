@@ -28,10 +28,10 @@ function WeeklyFBar(props) {
         <Container>
             <Date>{props.date}</Date>
             <TemperatureContainer>
-                <Icon src={`http://openweathermap.org/img/wn/${props.icon}@2x.png`} 
+                <Icon src={`https://openweathermap.org/img/wn/${props.icon}@2x.png`} 
                 width="70px"
                 />
-                <Temperature>{props.low}˚ F/{props.high}˚ F</Temperature>
+                <Temperature>{props.low}˚F/{props.high}˚F</Temperature>
             </TemperatureContainer>
             <Description>{props.description}</Description>
         </Container>

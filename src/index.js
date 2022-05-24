@@ -11,7 +11,7 @@ import reportWebVitals from './reportWebVitals';
   ReactDOM.render(
   <React.StrictMode>
     <ContextProvider>
-      <Router>
+      <Router basename="/weather-app/">
         <App />
       </Router>
     </ContextProvider>

@@ -7,6 +7,9 @@ const Container = styled.div`
     height: auto;
     justify-content: center;
 `
+const Title = styled.h2`
+    margin-bottom: 10px;
+    `
 
 function HourlyForecast(props) {
     const data = props.forecast.hourly;
@@ -46,7 +49,7 @@ function HourlyForecast(props) {
 
     return (
         <Container>
-            <h2>Hourly Forecast</h2>
+            <Title>Hourly Forecast</Title>
             <ResponsiveContainer width={'90%'} aspect={2}>
             <LineChart
             data={hourly}

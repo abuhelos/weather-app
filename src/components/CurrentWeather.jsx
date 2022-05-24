@@ -94,7 +94,7 @@ function CurrentWeather(props) {
                     <h3>Last Update: {timeConverter(props.time)}</h3>
                 </Title>
                 <TemperatureContainer>
-                    <Logo src={`http://openweathermap.org/img/wn/${props.icon}@2x.png`} width="100px"/>
+                    <Logo src={`https://openweathermap.org/img/wn/${props.icon}@2x.png`} width="100px"/>
                     <Temperature>{temperatureConverter(props.temperature)} ˚ F</Temperature>
                 </TemperatureContainer>
                 <WeatherDescription>

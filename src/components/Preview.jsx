@@ -98,8 +98,8 @@ function Preview(props) {
                 <LocationTitle>{props.currentWeather && "Current Location"}</LocationTitle>
                 <Location>{props.location}</Location>
                 <Weather>{props.weather}</Weather>
-                <Logo src={`http://openweathermap.org/img/wn/${props.logo}@2x.png`} width="125px"/>
-                <Temperature>{`${temperatureConverter(props.temperature)}˚ F`}</Temperature>
+                <Logo src={`https://openweathermap.org/img/wn/${props.logo}@2x.png`} width="125px"/>
+                <Temperature>{`${temperatureConverter(props.temperature)}˚F`}</Temperature>
             </WeatherContainer>
         </Link>
         </Container>
